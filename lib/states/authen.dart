@@ -1,3 +1,4 @@
+import 'package:chanatran/states/createaccount.dart';
 import 'package:chanatran/utility/my_constant.dart';
 import 'package:chanatran/widges/show_botton.dart';
 import 'package:chanatran/widges/show_form.dart';
@@ -30,23 +31,32 @@ class Authen extends StatelessWidget {
                   newEmail(),
                   newPassword(),
                   newButton(),
-                  Row(
-                    children: [
-                      ShowTextButton(),
-                      TextButton(
-                          onPressed: null,
-                          child: ShowText(
-                            lable: 'Create Account',
-                            textStyle: MyConstant().h3ActiveStyle(),
-                          ))
-                    ],
-                  ),
+                  newCreateAccount(context: context),
                 ],
               ),
             ),
           ),
         );
       }),
+    );
+  }
+
+  Row newCreateAccount({required BuildContext context}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ShowText(lable: 'Non Account?'),
+        ShowTextButton(
+          label: 'Create Account',
+          pressFunc: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreateAccount(),
+                ));
+          },
+        ),
+      ],
     );
   }
 

@@ -32,7 +32,7 @@ class ShowForm extends StatelessWidget {
           filled: true,
           contentPadding:
               EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-          prefixIcon: Icon(
+          suffixIcon: Icon(
             iconData,
             color: MyConstant.dark,
           ),

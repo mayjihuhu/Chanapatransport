@@ -15,7 +15,7 @@ class ShowBotton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      width: 100,
+      width: 250,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               primary: MyConstant.primary,
