@@ -20,7 +20,7 @@ class ShowForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(top: 25),
       width: 250,
       height: 40,
       child: TextFormField(
@@ -28,7 +28,7 @@ class ShowForm extends StatelessWidget {
         obscureText: obsecu ?? false,
         style: MyConstant().h3Style(),
         decoration: InputDecoration(
-          fillColor: Colors.white.withOpacity(0.5),
+          fillColor: Colors.white.withOpacity(0.9),
           filled: true,
           contentPadding:
               EdgeInsets.symmetric(vertical: 5, horizontal: 8),

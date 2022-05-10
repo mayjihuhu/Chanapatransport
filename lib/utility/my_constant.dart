@@ -4,7 +4,7 @@ class MyConstant {
 //field
   static Color primary = Color.fromARGB(255, 255, 9, 9);
   static Color dark = Color.fromARGB(255, 210, 26, 5);
-  static Color light = Color.fromARGB(255, 223, 180, 88);
+  static Color light = Color.fromARGB(255, 143, 106, 24);
 
   static List<String> typeUsers = [
     'Owner',
@@ -15,15 +15,16 @@ class MyConstant {
 //method
 
   BoxDecoration curveBorderBox() => BoxDecoration(
-    border: Border.all(color: MyConstant.dark),
-  borderRadius: BorderRadius.circular(30),
-
-  );
+        border: Border.all(color: MyConstant.dark),
+        borderRadius: BorderRadius.circular(30),
+      );
 
   //BoxDecoration planBox() => BoxDecoration(color: light.withOpacity(0.5));
   BoxDecoration imagebox() => const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('images/zombie_BK1.png'),
+          image: AssetImage('images/bk.jpg'),
+          fit: BoxFit.cover,
+          opacity: (0.4),
         ),
       );
 
@@ -43,7 +44,11 @@ class MyConstant {
   }
 
   TextStyle h3Style() {
-    return TextStyle(color: light, fontSize: 15, fontWeight: FontWeight.normal);
+    return TextStyle(
+      color: light, 
+      fontSize: 15, 
+      fontWeight: FontWeight.normal
+      );
   }
 
   TextStyle h3ActiveStyle() {

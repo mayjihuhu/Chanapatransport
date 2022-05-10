@@ -21,7 +21,7 @@ class Authen extends StatelessWidget {
           behavior: HitTestBehavior.opaque,
           onTap: () => FocusScope.of(context).requestFocus(FocusScopeNode()),
           child: Container(
-            decoration: MyConstant().planBox(),
+            decoration: MyConstant().imagebox(),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +52,7 @@ class Authen extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CreateAccount(),
+                  builder: (context) => const CreateAccount(),
                 ));
           },
         ),
