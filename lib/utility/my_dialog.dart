@@ -25,10 +25,10 @@ class MyDialog {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: ShowListTile(
-          title: title, 
-          subTitle: subtitle, 
+          title: title,
+          subTitle: subtitle,
           path: 'images/avatar_icon.png',
-          ),
+        ),
         actions: [
           ShowTextButton(
             label: label1,
@@ -50,14 +50,31 @@ class MyDialog {
   }
 
   Future<void> normalDialog(
-      {required String title, required String subtitle}) async {
+      {
+      required String title, 
+      required String subTitle,
+      Function()? pressFunc,
+      Widget? widget,
+      
+      }) async {
     showDialog(
-        context: context, 
+        context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: ShowListTile(title: title, 
-          subTitle: subtitle, 
-          path: 'images/logo_food.png',
-          ),
-        ));
+              title: ShowListTile(
+                title: title,
+                subTitle: subTitle,
+                path: 'images/logo_food.png',
+              ),
+              actions: [
+                ShowTextButton(
+                    label: 'OK',
+                    pressFunc: pressFunc ?? () {
+                      Navigator.pop(context);
+                    },
+                    )
+              ],
+              content: widget ?? const SizedBox(),
+            ),
+            );
   }
 }//class

@@ -5,6 +5,7 @@ class MyConstant {
   static Color primary = Color.fromARGB(255, 255, 9, 9);
   static Color dark = Color.fromARGB(255, 210, 26, 5);
   static Color light = Color.fromARGB(255, 143, 106, 24);
+  static Color orang = Color.fromARGB(255, 248, 200, 182);
 
   static List<String> typeUsers = [
     'Owner',
@@ -12,6 +13,9 @@ class MyConstant {
     'Driver',
   ];
 
+  static String pathRegister =
+      'https://www.rollerglobal.com/api/api/Member/register';
+  static String pathlogin = 'https://www.rollerglobal.com/api/api/Member/login';
 //method
 
   BoxDecoration curveBorderBox() => BoxDecoration(
@@ -29,7 +33,7 @@ class MyConstant {
       );
 
   BoxDecoration planBox() => const BoxDecoration(
-      color: Color.fromARGB(255, 247, 195, 204)); //Backgroud
+      color: Color.fromARGB(255, 248, 200, 182)); //Backgroud
 
   TextStyle h1Style() {
     return TextStyle(color: primary, fontSize: 36, fontWeight: FontWeight.bold);
@@ -44,16 +48,20 @@ class MyConstant {
   }
 
   TextStyle h3Style() {
-    return TextStyle(
-      color: light, 
-      fontSize: 15, 
-      fontWeight: FontWeight.normal
-      );
+    return TextStyle(color: light, fontSize: 15, fontWeight: FontWeight.normal);
   }
 
   TextStyle h3ActiveStyle() {
     return TextStyle(
       color: Colors.pink,
+      fontSize: 15,
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+  TextStyle h4Style() {
+    return TextStyle(
+      color: Color.fromARGB(255, 224, 95, 16),
       fontSize: 15,
       fontWeight: FontWeight.w700,
     );

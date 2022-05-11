@@ -73,7 +73,8 @@ class _CreateAccountState extends State<CreateAccount> {
               pressFunc: () {
                 if (file == null) {
                   MyDialog(context: context).normalDialog(
-                      title: 'Non Avatar ?', subtitle: 'Please Take Avatar');
+                      title: 'Non Avatar ?', 
+                      subTitle: 'Please Take Avatar');
                 }
               },
             ),

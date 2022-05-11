@@ -1,4 +1,5 @@
 import 'package:chanatran/states/createaccount.dart';
+import 'package:chanatran/states/register.dart';
 import 'package:chanatran/utility/my_constant.dart';
 import 'package:chanatran/widges/show_botton.dart';
 import 'package:chanatran/widges/show_form.dart';
@@ -52,7 +53,7 @@ class Authen extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const CreateAccount(),
+                  builder: (context) => Register(),
                 ));
           },
         ),

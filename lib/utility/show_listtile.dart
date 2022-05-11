@@ -7,7 +7,7 @@ class ShowListTile extends StatelessWidget {
   final String title;
   final String subTitle;
   final String path;
-  const ShowListTile({
+  const ShowListTile( {
     Key? key,
     required this.title,
     required this.subTitle,
