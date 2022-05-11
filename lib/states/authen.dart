@@ -1,18 +1,28 @@
+import 'package:chanatran/models/authen_model.dart';
 import 'package:chanatran/states/createaccount.dart';
 import 'package:chanatran/states/register.dart';
 import 'package:chanatran/utility/my_constant.dart';
+import 'package:chanatran/utility/my_dialog.dart';
 import 'package:chanatran/widges/show_botton.dart';
 import 'package:chanatran/widges/show_form.dart';
 import 'package:chanatran/widges/show_image.dart';
 import 'package:chanatran/widges/show_text.dart';
 import 'package:chanatran/widges/show_text_button.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class Authen extends StatelessWidget {
+class Authen extends StatefulWidget {
   const Authen({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<Authen> createState() => _AuthenState();
+}
+
+class _AuthenState extends State<Authen> {
+  String? rollerid, username, password;
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +34,19 @@ class Authen extends StatelessWidget {
           child: Container(
             decoration: MyConstant().imagebox(),
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  newLeftSide(newLogo(contraints)),
-                  newLeftSide(newText()),
-                  newEmail(),
-                  newPassword(),
-                  newButton(),
-                  newCreateAccount(context: context),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    newLeftSide(newLogo(contraints)),
+                    newLeftSide(newText()),
+                    newRollerId(),
+                    newUser(),
+                    newPassword(),
+                    newButton(),
+                    newCreateAccount(context: context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -41,6 +54,14 @@ class Authen extends StatelessWidget {
       }),
     );
   }
+
+  ShowForm newRollerId() => ShowForm(
+      textInputType: TextInputType.number,
+      label: 'RollerId :',
+      iconData: Icons.account_box_outlined,
+      changeFunc: (String string) {
+        rollerid = string.trim();
+      });
 
   Row newCreateAccount({required BuildContext context}) {
     return Row(
@@ -78,15 +99,26 @@ class Authen extends StatelessWidget {
   ShowBotton newButton() {
     return ShowBotton(
       label: 'Login',
-      pressFunc: () {},
+      pressFunc: () {
+        if ((rollerid?.isEmpty ?? true) ||
+            (username?.isEmpty ?? true) ||
+            (password?.isEmpty ?? true)) {
+          MyDialog(context: context).normalDialog(
+              title: 'Have Space ?', subTitle: 'Please Every Blank');
+        } else {
+          processCheckAuthen();
+        }
+      },
     );
   }
 
-  ShowForm newEmail() {
+  ShowForm newUser() {
     return ShowForm(
-      label: 'E-mail :',
+      label: 'Username :',
       iconData: Icons.account_circle_outlined,
-      changeFunc: (String string) {},
+      changeFunc: (String string) {
+        username = string.trim();
+      },
     );
   }
 
@@ -95,7 +127,9 @@ class Authen extends StatelessWidget {
       label: 'Password :',
       iconData: Icons.lock_outline,
       obsecu: true,
-      changeFunc: (String string) {},
+      changeFunc: (String string) {
+        password = string.trim();
+      },
     );
   }
 
@@ -115,5 +149,17 @@ class Authen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> processCheckAuthen() async {
+    AuthenModel authenModel = AuthenModel(
+        rollerid: rollerid!, username: username!, password: password!);
+    await Dio()
+        .post(MyConstant.pathAuthen, data: authenModel.toMap())
+        .then((value) {
+      print('value authen ==> $value');
+    }).catchError((onError) {
+      print('value Authen ==> ${onError.toString()}');
+    });
   }
 }

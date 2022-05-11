@@ -9,12 +9,14 @@ class ShowForm extends StatelessWidget {
   final IconData iconData;
   final bool? obsecu;
   final Function(String) changeFunc;
+  final TextInputType? textInputType;
   const ShowForm({
     Key? key,
     required this.label,
     required this.iconData,
     this.obsecu,
     required this.changeFunc,
+    this.textInputType,
   }) : super(key: key);
 
   @override
@@ -24,27 +26,25 @@ class ShowForm extends StatelessWidget {
       width: 250,
       height: 40,
       child: TextFormField(
+        keyboardType:  textInputType ?? TextInputType.text,
         onChanged: changeFunc,
         obscureText: obsecu ?? false,
         style: MyConstant().h3Style(),
         decoration: InputDecoration(
           fillColor: Colors.white.withOpacity(0.9),
           filled: true,
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+          contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           suffixIcon: Icon(
             iconData,
             color: MyConstant.dark,
           ),
           label: ShowText(lable: label),
           //user
-          enabledBorder: 
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide(color: MyConstant.dark)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: BorderSide(color: MyConstant.dark)),
           //password
-          focusedBorder:
-              OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
               borderSide: BorderSide(color: MyConstant.dark)),
         ),

@@ -15,7 +15,8 @@ class MyConstant {
 
   static String pathRegister =
       'https://www.rollerglobal.com/api/api/Member/register';
-  static String pathlogin = 'https://www.rollerglobal.com/api/api/Member/login';
+  static String pathAuthen =
+      'https://www.rollerglobal.com/api/api/Member/login';
 //method
 
   BoxDecoration curveBorderBox() => BoxDecoration(
