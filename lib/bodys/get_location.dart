@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_null_comparison
+// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_null_comparison, prefer_collection_literals
 
 import 'dart:io';
 
 import 'package:chanatran/utility/my_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GetLocationShowMap extends StatefulWidget {
   const GetLocationShowMap({Key? key}) : super(key: key);
@@ -51,10 +52,8 @@ class _GetLocationShowMapState extends State<GetLocationShowMap> {
           lat = position.latitude;
           lng = position.longitude;
           print('lat = $lat, lng = $lng');
-           load = false;
+          load = false;
           setState(() {});
-         
-
         }
       }
     } else {
@@ -77,12 +76,28 @@ class _GetLocationShowMapState extends State<GetLocationShowMap> {
     return position!;
   }
 
+  Set<Marker> myMarker(){
+    return <Marker>[
+      Marker(
+        markerId: MarkerId('id'),
+        position: LatLng(lat!, lng!)
+      ),
+        ].toSet();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: load 
-      ? const Center(child: CircularProgressIndicator()) 
-      : Text('This is GetLocaation \n lat = $lat, lng = $lng'),
-      );
+      body: load
+          ? const Center(child: CircularProgressIndicator())
+          : GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(lat!, lng!),
+                zoom: 16,
+              ),
+              onMapCreated: (Value){},
+              markers: myMarker(),
+            ),
+    );
   }
 }
