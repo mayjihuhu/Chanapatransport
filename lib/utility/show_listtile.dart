@@ -12,6 +12,7 @@ class ShowListTile extends StatelessWidget {
     required this.title,
     required this.subTitle,
     required this.path,
+    final double? size,
   }) : super(key: key);
 
   @override

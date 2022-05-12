@@ -1,4 +1,8 @@
+// ignore_for_file: unused_local_variable, unnecessary_import
+
 import 'package:chanatran/models/authen_model.dart';
+import 'package:chanatran/models/response_false_model.dart';
+import 'package:chanatran/models/success_authen_model.dart';
 import 'package:chanatran/states/createaccount.dart';
 import 'package:chanatran/states/register.dart';
 import 'package:chanatran/utility/my_constant.dart';
@@ -11,6 +15,7 @@ import 'package:chanatran/widges/show_text_button.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Authen extends StatefulWidget {
   const Authen({
@@ -23,6 +28,26 @@ class Authen extends StatefulWidget {
 
 class _AuthenState extends State<Authen> {
   String? rollerid, username, password;
+
+  TextEditingController rollerIdController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    forTestAuthen();
+  }
+
+  void forTestAuthen() {
+    rollerIdController.text = '6510000090';
+    userNameController.text = '8422588455';
+    passwordController.text = '060765';
+
+    rollerid = rollerIdController.text;
+    username = userNameController.text;
+    password = passwordController.text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +81,7 @@ class _AuthenState extends State<Authen> {
   }
 
   ShowForm newRollerId() => ShowForm(
+      controller: rollerIdController,
       textInputType: TextInputType.number,
       label: 'RollerId :',
       iconData: Icons.account_box_outlined,
@@ -114,6 +140,7 @@ class _AuthenState extends State<Authen> {
 
   ShowForm newUser() {
     return ShowForm(
+      controller: userNameController,
       label: 'Username :',
       iconData: Icons.account_circle_outlined,
       changeFunc: (String string) {
@@ -124,6 +151,7 @@ class _AuthenState extends State<Authen> {
 
   ShowForm newPassword() {
     return ShowForm(
+      controller: passwordController,
       label: 'Password :',
       iconData: Icons.lock_outline,
       obsecu: true,
@@ -158,8 +186,36 @@ class _AuthenState extends State<Authen> {
         .post(MyConstant.pathAuthen, data: authenModel.toMap())
         .then((value) {
       print('value authen ==> $value');
+
+      ResponseFalseModel responseFalseModel =
+          ResponseFalseModel.fromMap(value.data);
+      print('ResponseStatus ==> ${responseFalseModel.ResponseStatus}');
+
+      if (responseFalseModel.ResponseStatus == 'Failed') {
+        MyDialog(context: context).normalDialog(
+            title: 'Login Flase',
+            subTitle: responseFalseModel.ResponseMessages);
+      } else {
+        SuccessAuthenModel successAuthenModel =
+            SuccessAuthenModel.fromJson(value.data);
+        processSaveUser(successAuthenModel: successAuthenModel);
+      }
     }).catchError((onError) {
       print('value Authen ==> ${onError.toString()}');
     });
+  }
+
+  Future<void> processSaveUser(
+      {required SuccessAuthenModel successAuthenModel}) async {
+    String token = successAuthenModel.responseData![0].token.toString();
+    print('token ==>> $token');
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString(MyConstant.keyRollerId, rollerid!);
+    preferences.setString(MyConstant.keyUserName, username!);
+    preferences.setString(MyConstant.keyPassword, password!);
+    preferences.setString(MyConstant.keyToken, token);
+
+    Navigator.pushNamedAndRemoveUntil(context, '/myService', (route) => false);
   }
 }

@@ -97,7 +97,7 @@ class _RegisterState extends State<Register> {
                             MyDialog(context: context).normalDialog(
                                 title: 'Phoe 10 digit',
                                 subTitle: 'Please Phone 10 digit');
-                          } else if (phonenumber!.contains('')) {
+                          } else if (phonenumber!.contains(' ')) {
                             MyDialog(context: context).normalDialog(
                                 title: 'มีช่องว่างแทรก',
                                 subTitle: 'ห้ามมีช่องว่างแทรก');
